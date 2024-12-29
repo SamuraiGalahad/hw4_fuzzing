@@ -1,0 +1,26 @@
+{
+  "fuzzing": {
+    "testLimit": 100000,
+    "corpusDirectory": "",
+    "deployerAddress": "0x10000",
+    "senderAddresses": ["0x10000", "0x20000", "0x30000"],
+    "assertionTesting": {
+      "enabled": true
+    },
+    "propertyTesting": {
+      "enabled": false
+    },
+    "optimizationTesting": {
+      "enabled": false
+    }
+  },
+  "compilation": {
+    "platform": "crytic-compile",
+    "platformConfig": {
+      "target": ".",
+      "solcVersion": "",
+      "exportDirectory": "",
+      "args": ["--foundry-compile-all"]
+    }
+  }
+}
