@@ -3,13 +3,17 @@
     "workers": 10,
     "workerResetLimit": 50,
     "timeout": 0,
-    "testLimit": 100000,
+    "testLimit": 1000000,
     "shrinkLimit": 5000,
-    "callSequenceLength": 100,
+    "callSequenceLength": 1000,
     "corpusDirectory": "",
     "coverageEnabled": true,
     "coverageFormats": ["html", "lcov"],
-    "targetContracts": [],
+    "target_contracts": {
+      "MyToken": {
+        "constructor_arguments": ["0x10000"]
+      }
+    },
     "predeployedContracts": {},
     "targetContractsBalances": [],
     "constructorArgs": {},
@@ -20,10 +24,10 @@
     "blockGasLimit": 125000000,
     "transactionGasLimit": 12500000,
     "testing": {
-      "stopOnFailedTest": true,
+      "stopOnFailedTest": false,
       "stopOnFailedContractMatching": false,
       "stopOnNoTests": true,
-      "testAllContracts": false,
+      "testAllContracts": true,
       "traceAll": false,
       "assertionTesting": {
         "enabled": true,

@@ -1,0 +1,110 @@
+MacBook-Pro-Nikolaj-2:fuzzing_hw4 nikolajparahin$ echidna src/MyTokenInternal.sol --contract MyTokenInternal --config src/internal.yml
+[2024-12-30 14:48:22.38] Compiling src/MyTokenInternal.sol... Done! (0.986439s)
+Analyzing contract: /Users/nikolajparahin/Downloads/fuzzing_hw4/src/MyTokenInternal.sol:MyTokenInternal
+[2024-12-30 14:48:23.52] Running slither on src/MyTokenInternal.sol... Done! (1.721539s)
+Loaded 13 transaction sequences from echidna-corpus/reproducers
+Loaded 87 transaction sequences from echidna-corpus/coverage
+name(): passing
+approve(address,uint256): passing
+test_ERC20_userBalanceNotHigherThanSupply(): failed!💥  
+  Call sequence:
+    MyTokenInternal.test_ERC20_userBalanceNotHigherThanSupply()
+
+Traces: 
+emit AssertLteFail(«Invalid: 1000000000000000000000>1 failed, reason: User balance higher than total supply») <no source map>
+
+totalSupply(): passing
+test_ERC20_selfTransferFrom(uint256): passing
+transferFrom(address,address,uint256): passing
+test_ERC20_transferMoreThanBalance(address): passing
+decimals(): passing
+test_ERC20_transferFromZeroAmount(address): passing
+DOMAIN_SEPARATOR(): passing
+unpause(): passing
+mint(address,uint256): passing
+burn(uint256): passing
+test_ERC20_burnFrom(uint256): passing
+paused(): passing
+balanceOf(address): passing
+renounceOwnership(): passing
+burnFrom(address,uint256): passing
+test_ERC20_setAllowanceTwice(address,uint256): passing
+nonces(address): passing
+test_ERC20_transferFromMoreThanBalance(address): passing
+pause(): passing
+eip712Domain(): passing
+owner(): passing
+symbol(): passing
+test_ERC20_constantSupply(): passing
+test_ERC20_zeroAddressBalance(): passing
+test_ERC20_transferFrom(address,uint256): passing
+transfer(address,uint256): passing
+test_ERC20_spendAllowanceAfterTransfer(address,uint256): passing
+test_ERC20_setAllowance(address,uint256): passing
+test_ERC20_mintTokens(address,uint256): failed!💥  
+  Call sequence:
+    MyTokenInternal.transferOwnership(0xa329c0648769a73afac7f9381e08fb43dbea72)
+    MyTokenInternal.test_ERC20_mintTokens(0xdeadbeef,1)
+
+Traces: 
+call 0x00a329c0648769A73afAc7F9381E08FB43dBEA72::mint(0x00000000000000000000000000000000DeaDBeef, 1) <no source map>
+ ├╴emit Transfer(from=0x0000000000000000000000000000000000000000, to=0x00000000000000000000000000000000DeaDBeef, value=1) <no source map>
+ └╴← 0x
+emit AssertEqFail(«Invalid: 1!=2, reason: Mint failed to update total supply») <no source map>
+
+test_ERC20_selfTransfer(uint256): passing
+test_ERC20_burnFromUpdateAllowance(uint256): passing
+test_ERC20_transfer(address,uint256): failed!💥  
+  Call sequence:
+    MyTokenInternal.mint(0xa329c0648769a73afac7f9381e08fb43dbea72,3)
+    MyTokenInternal.test_ERC20_transfer(0x0,0)
+
+Traces: 
+call 0x00a329c0648769A73afAc7F9381E08FB43dBEA72::transfer(0x0000000000000000000000000000000000000000, 1) <no source map>
+ └╴← (false)
+emit AssertFail(«transfer failed») <no source map>
+
+test_ERC20_burn(uint256): failed!💥  
+  Call sequence:
+    MyTokenInternal.transfer(0xa329c0648769a73afac7f9381e08fb43dbea72,1)
+    MyTokenInternal.test_ERC20_burn(1)
+
+Traces: 
+call 0x00a329c0648769A73afAc7F9381E08FB43dBEA72::burn(1) <no source map>
+ ├╴emit Transfer(from=0x00a329c0648769A73afAc7F9381E08FB43dBEA72, to=0x0000000000000000000000000000000000000000, value=1) <no source map>
+ ├╴emit Transfer(from=0x0000000000000000000000000000000000000000, to=0x00a329c0648769A73afAc7F9381E08FB43dBEA72, value=1) <no source map>
+ ├╴emit Transfer(from=0x0000000000000000000000000000000000000000, to=0x00a329c0648769A73afAc7F9381E08FB43dBEA72, value=1) <no source map>
+ └╴← 0x
+emit AssertEqFail(«Invalid: 2!=0, reason: Source balance incorrect after burn») <no source map>
+
+permit(address,address,uint256,uint256,uint8,bytes32,bytes32): passing
+allowance(address,address): passing
+test_ERC20_transferFromToZeroAddress(uint256): passing
+test_ERC20_usersBalancesNotHigherThanSupply(): failed!💥  
+  Call sequence:
+    MyTokenInternal.test_ERC20_usersBalancesNotHigherThanSupply()
+
+Traces: 
+emit AssertLteFail(«Invalid: 3000000000000000000000>1 failed, reason: Sum of user balances higher than total supply») <no source map>
+
+test_ERC20_transferToZeroAddress(): passing
+transferOwnership(address): passing
+test_ERC20_transferZeroAmount(address): failed!💥  
+  Call sequence:
+    MyTokenInternal.transfer(0xa329c0648769a73afac7f9381e08fb43dbea72,1)
+    MyTokenInternal.test_ERC20_transferZeroAmount(0x0)
+
+Traces: 
+emit AssertFail(«Zero amount transfer failed») <no source map>
+
+AssertionFailed(..): passing
+
+
+Unique instructions: 6632
+Unique codehashes: 1
+Corpus size: 30
+Seed: 1398181360100701323
+
+[2024-12-30 14:48:42.07] Saving test reproducers... Done! (0.00045s)
+[2024-12-30 14:48:42.07] Saving corpus... Done! (1.15734s)
+[2024-12-30 14:48:43.23] Saving coverage... Done! (0.154034s)

@@ -1,0 +1,121 @@
+MacBook-Pro-Nikolaj-2:fuzzing_hw4 nikolajparahin$ echidna src/MyTokenExternal.sol --contract MyTokenExternal --config src/external.yml
+[2024-12-30 13:37:27.31] Compiling src/MyTokenExternal.sol... Done! (0.979553s)
+Analyzing contract: /Users/nikolajparahin/Downloads/fuzzing_hw4/src/MyTokenExternal.sol:MyTokenExternal
+[2024-12-30 13:37:28.43] Running slither on src/MyTokenExternal.sol... Done! (1.589554s)
+Loaded 13 transaction sequences from echidna-corpus/reproducers
+Loaded 86 transaction sequences from echidna-corpus/coverage
+test_ERC20external_userBalanceNotHigherThanSupply(): failed!💥  
+  Call sequence:
+    MyTokenExternal.test_ERC20external_userBalanceNotHigherThanSupply()
+
+Traces: 
+call 0xb4c79daB8f259C7Aee6E5b2Aa729821864227e84::balanceOf(PropertiesAsserts) (/Users/nikolajparahin/Downloads/fuzzing_hw4/lib/properties/contracts/ERC20/external/properties/ERC20ExternalBasicProperties.sol:21)
+ └╴← (1000000000000000000000)
+call 0xb4c79daB8f259C7Aee6E5b2Aa729821864227e84::totalSupply() (/Users/nikolajparahin/Downloads/fuzzing_hw4/lib/properties/contracts/ERC20/external/properties/ERC20ExternalBasicProperties.sol:21)
+ └╴← (1)
+emit AssertLteFail(«Invalid: 1000000000000000000000>1 failed, reason: User balance higher than total supply») (/Users/nikolajparahin/Downloads/fuzzing_hw4/lib/properties/contracts/util/PropertiesHelper.sol:117)
+
+test_ERC20external_setAllowanceTwice(address,uint256): passing
+test_ERC20external_burnFromUpdateAllowance(uint256): passing
+test_ERC20external_transferFrom(address,uint256): passing
+test_ERC20external_transferFromToZeroAddress(uint256): passing
+test_ERC20external_constantSupply(): passing
+test_ERC20external_setAllowance(address,uint256): passing
+test_ERC20external_transferMoreThanBalance(address): passing
+test_ERC20external_mintTokens(address,uint256): failed!💥  
+  Call sequence:
+    MyTokenExternal.test_ERC20external_mintTokens(0xdeadbeef,1)
+
+Traces: 
+call 0xb4c79daB8f259C7Aee6E5b2Aa729821864227e84::balanceOf(0x00000000000000000000000000000000DeaDBeef) (/Users/nikolajparahin/Downloads/fuzzing_hw4/lib/properties/contracts/ERC20/external/properties/ERC20ExternalMintableProperties.sol:16)
+ └╴← (0)
+call 0xb4c79daB8f259C7Aee6E5b2Aa729821864227e84::totalSupply() (/Users/nikolajparahin/Downloads/fuzzing_hw4/lib/properties/contracts/ERC20/external/properties/ERC20ExternalMintableProperties.sol:17)
+ └╴← (1)
+call 0xb4c79daB8f259C7Aee6E5b2Aa729821864227e84::mint(0x00000000000000000000000000000000DeaDBeef, 1) (/Users/nikolajparahin/Downloads/fuzzing_hw4/lib/properties/contracts/ERC20/external/properties/ERC20ExternalMintableProperties.sol:19)
+ ├╴emit Transfer(from=0x0000000000000000000000000000000000000000, to=0x00000000000000000000000000000000DeaDBeef, value=1) <no source map>
+ └╴← 0x
+call 0xb4c79daB8f259C7Aee6E5b2Aa729821864227e84::balanceOf(0x00000000000000000000000000000000DeaDBeef) (/Users/nikolajparahin/Downloads/fuzzing_hw4/lib/properties/contracts/ERC20/external/properties/ERC20ExternalMintableProperties.sol:20)
+ └╴← (1)
+call 0xb4c79daB8f259C7Aee6E5b2Aa729821864227e84::totalSupply() (/Users/nikolajparahin/Downloads/fuzzing_hw4/lib/properties/contracts/ERC20/external/properties/ERC20ExternalMintableProperties.sol:21)
+ └╴← (1)
+emit AssertEqFail(«Invalid: 1!=2, reason: Mint failed to update total supply») (/Users/nikolajparahin/Downloads/fuzzing_hw4/lib/properties/contracts/util/PropertiesHelper.sol:117)
+
+test_ERC20external_transferToZeroAddress(): passing
+test_ERC20external_transferFromMoreThanBalance(address): passing
+test_ERC20external_zeroAddressBalance(): passing
+test_ERC20external_transfer(address,uint256): failed!💥  
+  Call sequence:
+    MyTokenExternal.test_ERC20external_transfer(0x0,0)
+
+Traces: 
+call 0xb4c79daB8f259C7Aee6E5b2Aa729821864227e84::balanceOf(MyTokenExternal) (/Users/nikolajparahin/Downloads/fuzzing_hw4/lib/properties/contracts/ERC20/external/properties/ERC20ExternalBasicProperties.sol:130)
+ └╴← (1000000000000000000000)
+call 0xb4c79daB8f259C7Aee6E5b2Aa729821864227e84::balanceOf(0x0000000000000000000000000000000000000000) (/Users/nikolajparahin/Downloads/fuzzing_hw4/lib/properties/contracts/ERC20/external/properties/ERC20ExternalBasicProperties.sol:131)
+ └╴← (0)
+call 0xb4c79daB8f259C7Aee6E5b2Aa729821864227e84::transfer(0x0000000000000000000000000000000000000000, 1) (/Users/nikolajparahin/Downloads/fuzzing_hw4/lib/properties/contracts/ERC20/external/properties/ERC20ExternalBasicProperties.sol:135)
+ └╴← (false)
+emit AssertFail(«transfer failed») (/Users/nikolajparahin/Downloads/fuzzing_hw4/lib/properties/contracts/util/PropertiesHelper.sol:18)
+
+test_ERC20external_selfTransfer(uint256): passing
+test_ERC20external_userBalancesLessThanTotalSupply(): failed!💥  
+  Call sequence:
+    MyTokenExternal.test_ERC20external_userBalancesLessThanTotalSupply()
+
+Traces: 
+call 0xb4c79daB8f259C7Aee6E5b2Aa729821864227e84::balanceOf(PropertiesAsserts) (/Users/nikolajparahin/Downloads/fuzzing_hw4/lib/properties/contracts/ERC20/external/properties/ERC20ExternalBasicProperties.sol:26)
+ └╴← (1000000000000000000000)
+call 0xb4c79daB8f259C7Aee6E5b2Aa729821864227e84::balanceOf(PropertiesAsserts) (/Users/nikolajparahin/Downloads/fuzzing_hw4/lib/properties/contracts/ERC20/external/properties/ERC20ExternalBasicProperties.sol:26)
+ └╴← (1000000000000000000000)
+call 0xb4c79daB8f259C7Aee6E5b2Aa729821864227e84::balanceOf(PropertiesAsserts) (/Users/nikolajparahin/Downloads/fuzzing_hw4/lib/properties/contracts/ERC20/external/properties/ERC20ExternalBasicProperties.sol:26)
+ └╴← (1000000000000000000000)
+call 0xb4c79daB8f259C7Aee6E5b2Aa729821864227e84::balanceOf(MyTokenExternal) (/Users/nikolajparahin/Downloads/fuzzing_hw4/lib/properties/contracts/ERC20/external/properties/ERC20ExternalBasicProperties.sol:26)
+ └╴← (1000000000000000000000)
+call 0xb4c79daB8f259C7Aee6E5b2Aa729821864227e84::totalSupply() (/Users/nikolajparahin/Downloads/fuzzing_hw4/lib/properties/contracts/ERC20/external/properties/ERC20ExternalBasicProperties.sol:27)
+ └╴← (1)
+emit AssertLteFail(«Invalid: 4000000000000000000000>1 failed, reason: Sum of user balances are greater than total supply») (/Users/nikolajparahin/Downloads/fuzzing_hw4/lib/properties/contracts/util/PropertiesHelper.sol:117)
+
+test_ERC20external_burnFrom(uint256): passing
+test_ERC20external_transferFromZeroAmount(address): passing
+test_ERC20external_burn(uint256): failed!💥  
+  Call sequence:
+    MyTokenExternal.test_ERC20external_burn(1)
+
+Traces: 
+call 0xb4c79daB8f259C7Aee6E5b2Aa729821864227e84::balanceOf(MyTokenExternal) (/Users/nikolajparahin/Downloads/fuzzing_hw4/lib/properties/contracts/ERC20/external/properties/ERC20ExternalBurnableProperties.sol:16)
+ └╴← (1000000000000000000000)
+call 0xb4c79daB8f259C7Aee6E5b2Aa729821864227e84::totalSupply() (/Users/nikolajparahin/Downloads/fuzzing_hw4/lib/properties/contracts/ERC20/external/properties/ERC20ExternalBurnableProperties.sol:17)
+ └╴← (1)
+call 0xb4c79daB8f259C7Aee6E5b2Aa729821864227e84::burn(1) (/Users/nikolajparahin/Downloads/fuzzing_hw4/lib/properties/contracts/ERC20/external/properties/ERC20ExternalBurnableProperties.sol:21)
+ ├╴emit Transfer(from=MyTokenExternal, to=0x0000000000000000000000000000000000000000, value=1) <no source map>
+ ├╴emit Transfer(from=0x0000000000000000000000000000000000000000, to=MyTokenExternal, value=1) <no source map>
+ └╴← 0x
+call 0xb4c79daB8f259C7Aee6E5b2Aa729821864227e84::balanceOf(MyTokenExternal) (/Users/nikolajparahin/Downloads/fuzzing_hw4/lib/properties/contracts/ERC20/external/properties/ERC20ExternalBurnableProperties.sol:22)
+ └╴← (1000000000000000000000)
+emit AssertEqFail(«Invalid: 1000000000000000000000!=999999999999999999999, reason: Source balance incorrect after burn») (/Users/nikolajparahin/Downloads/fuzzing_hw4/lib/properties/contracts/util/PropertiesHelper.sol:117)
+
+test_ERC20external_transferZeroAmount(address): failed!💥  
+  Call sequence:
+    MyTokenExternal.test_ERC20external_transferZeroAmount(0x0)
+
+Traces: 
+call 0xb4c79daB8f259C7Aee6E5b2Aa729821864227e84::balanceOf(MyTokenExternal) (/Users/nikolajparahin/Downloads/fuzzing_hw4/lib/properties/contracts/ERC20/external/properties/ERC20ExternalBasicProperties.sol:104)
+ └╴← (1000000000000000000000)
+call 0xb4c79daB8f259C7Aee6E5b2Aa729821864227e84::balanceOf(0x0000000000000000000000000000000000000000) (/Users/nikolajparahin/Downloads/fuzzing_hw4/lib/properties/contracts/ERC20/external/properties/ERC20ExternalBasicProperties.sol:105)
+ └╴← (0)
+call 0xb4c79daB8f259C7Aee6E5b2Aa729821864227e84::transfer(0x0000000000000000000000000000000000000000, 0) (/Users/nikolajparahin/Downloads/fuzzing_hw4/lib/properties/contracts/ERC20/external/properties/ERC20ExternalBasicProperties.sol:108)
+ └╴← (false)
+emit AssertFail(«Zero amount transfer failed») (/Users/nikolajparahin/Downloads/fuzzing_hw4/lib/properties/contracts/util/PropertiesHelper.sol:18)
+
+test_ERC20external_spendAllowanceAfterTransfer(address,uint256): passing
+test_ERC20external_selfTransferFrom(uint256): passing
+AssertionFailed(..): passing
+
+
+Unique instructions: 11721
+Unique codehashes: 2
+Corpus size: 30
+Seed: 4341407082789517958
+
+[2024-12-30 13:38:07.22] Saving test reproducers... Done! (0.000487s)
+[2024-12-30 13:38:07.22] Saving corpus... Done! (1.067543s)
+[2024-12-30 13:38:08.28] Saving coverage... Done! (0.213055s)
